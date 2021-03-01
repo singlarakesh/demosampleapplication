@@ -2,8 +2,8 @@ pipeline {
     agent any
     tools
     {
-    	maven 'MAVEN_HOME'
-    	jdk 'JAVA_HOME'
+    	maven 'Maven3'
+    	jdk 'java8'
     }
     stages {
        stage('Checkout'){
@@ -27,7 +27,7 @@ pipeline {
        stage('Sonar Analysis'){
         steps{
            echo 'Sonar Analysis..'
-           withSonarQubeEnv("Test_Sonar")
+           withSonarQubeEnv("LocalSonar")
            {
              bat "mvn sonar:sonar"
            }
