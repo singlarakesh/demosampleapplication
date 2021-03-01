@@ -32,7 +32,12 @@ pipeline {
              bat "mvn sonar:sonar"
            }
          }
-       }     
+       }    
+          stage('Docker Image'){
+        steps{
+          bat "docker build -t dtr.nagarro.com:443/i-parushasingla-master:${BUILD_NUMBER} . --no-cache -f Dockerfile"
+        }
+      }
  
     }  
 }
