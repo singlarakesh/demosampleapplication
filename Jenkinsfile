@@ -37,7 +37,7 @@ pipeline {
       stage('Docker stop running container'){
        steps{
         bat """
-        docker ps -aqf name=c-parushasingla-master>temp.txt
+        docker ps -aqf name=c-parushasingla-master>tmp.txt
         set /p comd1=<tmp.txt
         if[%comd1%]==[](echo "no running container")
         else(
