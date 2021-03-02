@@ -34,9 +34,22 @@ pipeline {
         bat "docker push dtr.nagarro.com:443/i-parushasingla-master:${BUILD_NUMBER}"
        }
       }
+      stage('Docker stop running container'){
+       steps{
+        bat """
+        docker ps -aqf name=c-parushasingla-master>temp.txt
+        set /p comd1=<tmp.txt
+        if[%comd1%]==[](echo "no running container")
+        else(
+        docker stop %comd1%
+        docker rm -f %comd1%
+        )
+        """
+       }
+      }
      stage('Run image'){
        steps{
-        bat "docker -d --name c-parushasingla-master -p 8080:8080 dtr.nagarro.com:443/i-parushasingla-master:${BUILD_NUMBER}"
+        bat "docker run -d --name c-parushasingla-master -p 9090:8080 dtr.nagarro.com:443/i-parushasingla-master:${BUILD_NUMBER}"
        }
       }
    }
